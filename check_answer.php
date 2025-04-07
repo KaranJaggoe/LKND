@@ -1,6 +1,6 @@
 <?php
-global $pdo;
 session_start();
+global $pdo;
 
 // Zorg dat het pad naar db.php klopt
 include_once 'modules/database.php';
@@ -29,11 +29,20 @@ $antwoorden = [
 // Stap 3: Check gewone puzzels (level 1–7)
 if ($current_level <= 7 && isset($antwoorden[$current_level])) {
     if (in_array($antwoord, $antwoorden[$current_level])) {
-        // Goed antwoord → update level
+        // Goed antwoord update het level
         $stmt = $pdo->prepare("UPDATE escape_progress SET puzzle_level = ? WHERE user_identifier = ?");
         $stmt->execute([$current_level + 1, $user_id]);
+
+        // Reset de hints
+        $_SESSION['incorrect'] = false;
+        unset($_SESSION['show_hint']);
+    } else {
+        // Fout antwoord toon de hint
+        $_SESSION['incorrect'] = true;
+        $_SESSION['level'] = $current_level;
     }
 }
+
 
 // Stap 4: Check voorkeurvragen (level 8)
 if ($current_level == 8 &&
