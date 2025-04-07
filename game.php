@@ -71,6 +71,7 @@ if ($show_manual_hint && $hint_level != $puzzle_level) {
             background: #f0f4fa;
             color: #1a1a1a;
         }
+
         .container {
             max-width: 700px;
             margin: 60px auto;
@@ -80,17 +81,43 @@ if ($show_manual_hint && $hint_level != $puzzle_level) {
             box-shadow: 0 0 20px rgba(0, 0, 50, 0.1);
             animation: fadeIn 0.6s ease-in-out;
         }
+
         h1 {
             color: #002b5c;
             text-align: center;
         }
+
         p {
             font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
+
         form {
             margin-top: 20px;
         }
-        input[type="text"], input[type="submit"] {
+
+        .vraag {
+            margin-bottom: 25px;
+        }
+
+        .antwoordgroep {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
             font-size: 16px;
             padding: 10px;
             width: 100%;
@@ -98,20 +125,28 @@ if ($show_manual_hint && $hint_level != $puzzle_level) {
             border-radius: 8px;
             border: 1px solid #ccc;
         }
+
         input[type="submit"] {
             background: #004d99;
             color: white;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background: #0066cc;
         }
+
         .advies {
             background: #e0f0ff;
             border-left: 5px solid #004d99;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -139,38 +174,58 @@ if ($show_manual_hint && $hint_level != $puzzle_level) {
 
     <?php elseif ($puzzle_level == 8): ?>
     <p><strong><?= $puzzels[8] ?></strong></p>
-    <form action="check_answer.php" method="POST">
-        <p>1. Waar werk je het liefst mee?</p>
-        <label><input type="radio" name="q1" value="mensen" required> Mensen</label>
-        <label><input type="radio" name="q1" value="data"> Data</label>
-        <label><input type="radio" name="q1" value="code"> Code</label>
-        <label><input type="radio" name="q1" value="security"> Veiligheidssystemen</label>
+        <form action="check_answer.php" method="POST">
+            <div class="vraag">
+                <p>1. Waar werk je het liefst mee?</p>
+                <div class="antwoordgroep">
+                    <label><input type="radio" name="q1" value="mensen" required> Mensen</label>
+                    <label><input type="radio" name="q1" value="data"> Data</label>
+                    <label><input type="radio" name="q1" value="code"> Code</label>
+                    <label><input type="radio" name="q1" value="security"> Veiligheidssystemen</label>
+                </div>
+            </div>
 
-        <p>2. Wat vind jij het leukst om te doen?</p>
-        <label><input type="radio" name="q2" value="support" required> Problemen van gebruikers oplossen</label>
-        <label><input type="radio" name="q2" value="analyse"> Patronen ontdekken in data</label>
-        <label><input type="radio" name="q2" value="bouwen"> Software bouwen</label>
-        <label><input type="radio" name="q2" value="beveiligen"> Systemen beveiligen</label>
+            <div class="vraag">
+                <p>2. Wat vind jij het leukst om te doen?</p>
+                <div class="antwoordgroep">
+                    <label><input type="radio" name="q2" value="support" required> Problemen van gebruikers oplossen</label>
+                    <label><input type="radio" name="q2" value="analyse"> Patronen ontdekken in data</label>
+                    <label><input type="radio" name="q2" value="bouwen"> Software bouwen</label>
+                    <label><input type="radio" name="q2" value="beveiligen"> Systemen beveiligen</label>
+                </div>
+            </div>
 
-        <p>3. Werk je liever...</p>
-        <label><input type="radio" name="q3" value="alleen" required> Alleen</label>
-        <label><input type="radio" name="q3" value="team"> In teamverband</label>
-        <label><input type="radio" name="q3" value="afwisselend"> Wisselend</label>
+            <div class="vraag">
+                <p>3. Werk je liever...</p>
+                <div class="antwoordgroep">
+                    <label><input type="radio" name="q3" value="alleen" required> Alleen</label>
+                    <label><input type="radio" name="q3" value="team"> In teamverband</label>
+                    <label><input type="radio" name="q3" value="afwisselend"> Wisselend</label>
+                </div>
+            </div>
 
-        <p>4. Wat spreekt jou het meest aan?</p>
-        <label><input type="radio" name="q4" value="apps" required> Apps en websites ontwikkelen</label>
-        <label><input type="radio" name="q4" value="ai"> Slimme algoritmes en AI</label>
-        <label><input type="radio" name="q4" value="infra"> Netwerken en infrastructuur</label>
-        <label><input type="radio" name="q4" value="visualiseren"> Data visualiseren</label>
+            <div class="vraag">
+                <p>4. Wat spreekt jou het meest aan?</p>
+                <div class="antwoordgroep">
+                    <label><input type="radio" name="q4" value="apps" required> Apps en websites ontwikkelen</label>
+                    <label><input type="radio" name="q4" value="ai"> Slimme algoritmes en AI</label>
+                    <label><input type="radio" name="q4" value="infra"> Netwerken en infrastructuur</label>
+                    <label><input type="radio" name="q4" value="visualiseren"> Data visualiseren</label>
+                </div>
+            </div>
 
-        <p>5. Je krijgt een ICT-opdracht. Wat doe je als eerste?</p>
-        <label><input type="radio" name="q5" value="bouwen" required> Gelijk iets bouwen</label>
-        <label><input type="radio" name="q5" value="structuur"> Eerst een plan maken</label>
-        <label><input type="radio" name="q5" value="vragen"> Overleggen met team</label>
-        <label><input type="radio" name="q5" value="testen"> Testen hoe systemen reageren</label>
+            <div class="vraag">
+                <p>5. Je krijgt een ICT-opdracht. Wat doe je als eerste?</p>
+                <div class="antwoordgroep">
+                    <label><input type="radio" name="q5" value="bouwen" required> Gelijk iets bouwen</label>
+                    <label><input type="radio" name="q5" value="structuur"> Eerst een plan maken</label>
+                    <label><input type="radio" name="q5" value="vragen"> Overleggen met team</label>
+                    <label><input type="radio" name="q5" value="testen"> Testen hoe systemen reageren</label>
+                </div>
+            </div>
 
-        <input type="submit" value="🎓 Bekijk mijn studieadvies">
-    </form>
+            <input type="submit" value="🎓 Bekijk mijn studieadvies">
+        </form>
 
 
     <?php elseif ($puzzle_level == 9): ?>
@@ -180,7 +235,7 @@ if ($show_manual_hint && $hint_level != $puzzle_level) {
         $q3 = $_SESSION['q3'] ?? '';
         $q4 = $_SESSION['q4'] ?? '';
         $q5 = $_SESSION['q5'] ?? '';
-        $advies = "Software Engineering";
+        $advies = "";
 
         if ($q1 === 'security' || $q2 === 'beveiligen' || $q4 === 'infra') {
             $advies = "Cyber Security";
